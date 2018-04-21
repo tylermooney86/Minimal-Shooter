@@ -8,9 +8,11 @@ public class EnemyScript : MonoBehaviour {
 	public float orbitRadius = 5f;
 	Vector3 player = new Vector3(0,0,0);
 	public float shrinkRate = 0.2f;
+	public float enemyScale = 1f;
 
 	// Use this for initialization
 	void Start () {
+		shrink(-enemyScale);
 
 	}
 
