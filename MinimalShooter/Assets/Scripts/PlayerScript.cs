@@ -51,7 +51,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 	}
 	void Die() {
-		Application.Quit();
+		Destroy(gameObject);
+		GameManagerScript gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+		gameManagerScript.RestartGame();
 	}
 	public void LoadBullet() {
 		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -50,10 +50,10 @@ public class EnemyScript : MonoBehaviour {
 		shrink(-shrinkRate);
     yield return new WaitForSeconds(1);
 	}
-	public void shrink(float rate) {
-		float currentSize = transform.localScale.x;
-		transform.localScale = new Vector2 (currentSize - rate,currentSize - rate);
-		GetComponent<Rigidbody2D>().mass = GetComponent<Rigidbody2D>().mass - rate;
-	}
+					public void shrink(float rate) {
+						float currentSize = transform.localScale.x;
+						transform.localScale = new Vector2 (currentSize - rate,currentSize - rate);
+						GetComponent<Rigidbody2D>().mass = GetComponent<Rigidbody2D>().mass - rate;
+					}
 
 }
