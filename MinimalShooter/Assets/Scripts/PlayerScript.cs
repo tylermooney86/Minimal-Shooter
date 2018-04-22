@@ -9,7 +9,8 @@ public class PlayerScript : MonoBehaviour {
 	public Vector3 direction;
 	bool isLoaded = false;
 	GameObject bullet;
-	public float loadedBulletRadius = 0.7f;
+	public float loadedBulletRadius = 0.2f;
+	float currentRadius = 0.5f;
 	// Use this for initialization
 	void Start () {
 
@@ -21,7 +22,7 @@ public class PlayerScript : MonoBehaviour {
 			direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			direction = (Vector2)(direction);
 			direction.Normalize();
-			direction = direction * loadedBulletRadius;
+			direction = direction * (loadedBulletRadius + currentRadius);
 			bullet.transform.position = new Vector3(direction.x, direction.y, 0);
 			if (Input.GetMouseButtonDown(0)) {
 				fireBullet();
@@ -43,6 +44,9 @@ public class PlayerScript : MonoBehaviour {
 				Die();
 			} else {
 				shrink(shrinkRate);
+				currentRadius = transform.localScale.x;
+				currentRadius = currentRadius/2;
+				Debug.Log(currentRadius);
 			}
 		}
 	}
