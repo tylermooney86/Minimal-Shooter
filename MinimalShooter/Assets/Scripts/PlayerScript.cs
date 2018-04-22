@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
+	public float shrinkRate = 0.05f;
 	public GameObject bulletPreFab;
 	public float bulletSpeed = 100;
 	public Vector3 direction;
@@ -23,26 +24,55 @@ public class PlayerScript : MonoBehaviour {
 			direction = direction * loadedBulletRadius;
 			bullet.transform.position = new Vector3(direction.x, direction.y, 0);
 			if (Input.GetMouseButtonDown(0)) {
-				Debug.Log("Fire");
 				fireBullet();
 				isLoaded = false;
+				GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+				foreach (GameObject enemy in enemies) {
+					EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+					enemyScript.shrink(-0.1f);
+
+				}
 			}
 		} else {
-			direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			direction = (Vector2)(direction);
-			direction.Normalize();
-			direction = direction * loadedBulletRadius;
-			bullet = Instantiate(bulletPreFab,direction,Quaternion.identity);
-			isLoaded = true;
+			LoadBullet();
 		}
+	}
+	void OnCollisionEnter2D( Collision2D col) {
+		if(col.gameObject.name == "Enemy(Clone)"){
+			if (transform.localScale.x < 0.2f){
+				Die();
+			} else {
+				shrink(shrinkRate);
+			}
+		}
+	}
+	void Die() {
+		Application.Quit();
+	}
+	public void LoadBullet() {
+		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		direction = (Vector2)(direction);
+		direction.Normalize();
+		direction = direction * loadedBulletRadius;
+		bullet = Instantiate(bulletPreFab,direction,Quaternion.identity);
+		BulletScript bulletScript = bullet.GetComponent<BulletScript>();
+		bulletScript.isReady = true;
+		isLoaded = true;
 	}
 	//fire bullet
 	void fireBullet() {
 		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		direction = (Vector2)(direction);
 		direction.Normalize();
+		BulletScript bulletScript = bullet.GetComponent<BulletScript>();
+		bulletScript.isReady = false;
 		Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
 		bulletRB.AddForce(bulletSpeed * direction);
 
+	}
+	public void shrink(float rate) {
+		float currentSize = transform.localScale.x;
+		transform.localScale = new Vector2 (currentSize - rate,currentSize - rate);
+		GetComponent<Rigidbody2D>().mass = GetComponent<Rigidbody2D>().mass - rate;
 	}
 }

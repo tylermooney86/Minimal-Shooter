@@ -12,13 +12,12 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		shrink(-enemyScale);
+		// shrink(-enemyScale);
 
 	}
 
 	// Update is called once per frame
 	void Update () {
-		//transform.LookAt(player);
 		if (transform.position.magnitude >= orbitRadius) {
 			GetComponent<Rigidbody2D>().AddForce(-1 * transform.position * moveSpeed * (transform.position.magnitude-orbitRadius));
 		}
@@ -37,6 +36,9 @@ public class EnemyScript : MonoBehaviour {
 				Die();
 			}
 		}
+		else if(col.gameObject.name == "Enemy(clone)"){
+			shrink(-shrinkRate);
+		}
 	}
 	void Die() {
 		Destroy(gameObject);
@@ -45,11 +47,10 @@ public class EnemyScript : MonoBehaviour {
     GetComponent<SpriteRenderer>().color = Random.ColorHSV();
 	}
 	IEnumerator slowShrink() {
-		shrink(shrinkRate / 10f);
-    yield return new WaitForSeconds(.1f);
-
-}
-	void shrink(float rate) {
+		shrink(-shrinkRate);
+    yield return new WaitForSeconds(1);
+	}
+	public void shrink(float rate) {
 		float currentSize = transform.localScale.x;
 		transform.localScale = new Vector2 (currentSize - rate,currentSize - rate);
 		GetComponent<Rigidbody2D>().mass = GetComponent<Rigidbody2D>().mass - rate;

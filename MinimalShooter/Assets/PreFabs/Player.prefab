@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4777454258363576}
   - component: {fileID: 212087603187905096}
   - component: {fileID: 114535853215050424}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,6 +55,7 @@ MonoBehaviour:
   bulletPreFab: {fileID: 0}
   bulletSpeed: 1000
   direction: {x: 0, y: 0, z: 0}
+  loadedBulletRadius: 0.7
 --- !u!212 &212087603187905096
 SpriteRenderer:
   m_ObjectHideFlags: 1
