@@ -10,5 +10,7 @@ Game Images
 
 ![alt text](https://raw.githubusercontent.com/tylermooney86/Minimal-Shooter/master/Images/short.gif)
 
-![alt text](https://raw.githubusercontent.com/tylermooney86/Minimal-Shooter/master/Images/short.gif)
+![alt text](https://raw.githubusercontent.com/tylermooney86/Minimal-Shooter/master/Images/s1.png)
+
+![alt text](https://raw.githubusercontent.com/tylermooney86/Minimal-Shooter/master/Images/s2.png)
 
